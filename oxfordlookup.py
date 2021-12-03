@@ -5,6 +5,7 @@ app_id = "72e0c319"
 app_key = "c176e38e56492503618db74be48292c5"
 language = "en-gb"
 
+#sozlar sonini aniqlab beruvchi funksiya
 def getDefinitions(word_id):
     url = "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id.lower()
     r = requests.get(url, headers={"app_id": app_id, "app_key": app_key})
