@@ -3,10 +3,10 @@ from aiogram import Bot, Dispatcher, executor, types
 
 from oxfordlookup import getDefinitions
 from googletrans import Translator
+
 translator = Translator()
 
 API_TOKEN = '2128796946:AAEzQfTV4Y05Lyif-dh8dAbulygtIHOwagc'
-
 
 logging.basicConfig(level=logging.INFO)
 
@@ -18,9 +18,12 @@ dp = Dispatcher(bot)
 async def send_welcome(message: types.Message):
     await message.reply("Uzbek-English tarjimon botiga hush kelibsiz")
 
+
 @dp.message_handler(commands=['help'])
 async def help_welcome(message: types.Message):
-    await message.reply("Uzbek-English tarjimon boti orqali hohlagan so`zingizni tarjima qilib izhlarini ham topib beradi")
+    await message.reply(
+        "Uzbek-English tarjimon boti orqali hohlagan so`zingizni tarjima qilishingiz mumkin hamda izohlarini ham topishingiz mumkin")
+
 
 @dp.message_handler()
 async def tarjimon(message: types.Message):
@@ -29,7 +32,7 @@ async def tarjimon(message: types.Message):
         dest = 'uz' if lang == 'en' else 'en'
         await message.reply(translator.translate(message.text, dest).text)
     else:
-        if lang=='en':
+        if lang == 'en':
             word_id = message.text
         else:
             word_id = translator.translate(message.text, dest='en').text
@@ -42,18 +45,5 @@ async def tarjimon(message: types.Message):
             await message.reply("Bunday so'z topilmadi")
 
 
-
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
-
-
-
-
-
-
-
-
-
-
-
-
